@@ -6,38 +6,31 @@
  * Copyright (c) 2020 陈尼克 all rights reserved.
  * 版权所有，侵权必究！
  */
- import axios from 'axios'
- import { showToast, showFailToast } from 'vant'
- import { setLocal } from '@/common/js/utils'
- import router from '../router'
 
- console.log('import.meta.env', import.meta.env)
- 
- axios.defaults.baseURL = import.meta.env.MODE == 'development' ? '//backend-api-01.newbee.ltd/api/v1' : '//backend-api-01.newbee.ltd/api/v1'
- axios.defaults.withCredentials = true
- axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
- axios.defaults.headers['token'] = localStorage.getItem('token') || ''
- axios.defaults.headers.post['Content-Type'] = 'application/json'
- 
- axios.interceptors.response.use(res => {
-   if (typeof res.data !== 'object') {
-    showFailToast('服务端异常！')
-     return Promise.reject(res)
-   }
-   if (res.data.resultCode != 200) {
-     if (res.data.message) showFailToast(res.data.message)
-     if (res.data.resultCode == 416) {
-       router.push({ path: '/login' })
-     }
-     if (res.data.data && window.location.hash == '#/login') {
-       setLocal('token', res.data.data)
-       axios.defaults.headers['token'] = res.data.data
-     }
-     return Promise.reject(res.data)
-   }
- 
-   return res.data
- })
- 
- export default axios
- 
+//改进：模块化
+
+ // 独立实例 + 拦截器模块化
+import axios from 'axios';
+import { showFailToast } from 'vant';
+import { encryptObj } from '@/utils/crypto';
+
+const service = axios。create({
+  baseURL: import。meta。env。VITE_API_URL，
+  timeout: 15000，
+  headers: { /* ... */ }
+});
+
+// 请求加密拦截
+service。interceptors。request。use(config => {
+  config。data &&= { encryptData: encryptObj(config。data) };
+  return config;
+});
+
+// 响应解密 + 统一处理
+service。interceptors。response。use(response => {
+  const res = decryptData(response。data); // 解密逻辑
+  if (res。code !== 200) return handleError(res);
+  return res。data;
+}， handleNetworkError);
+
+export 默认 service;
