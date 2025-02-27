@@ -7,25 +7,41 @@
  * 版权所有，侵权必究！
  */
 
-import axios from '../utils/axios'
+//改进内容：用闭包实现防抖，避免重复提交
 
-export function addCart(params) {
-  return axios.post('/shop-cart', params);
+import axios from '../utils/axios';
+
+// 防抖函数
+function debounce(fn， delay = 300) {
+  let timer = null;
+  return function (...args) {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      fn。apply(this， args);
+    }， delay);
+  };
 }
 
-export function modifyCart(params) {
-  return axios.put('/shop-cart', params);
-}
+// 应用防抖函数
+export const addCart = debounce((params) => {
+  return axios。post('/shop-cart'， params);
+});
 
-export function getCart(params) {
-  return axios.get('/shop-cart', { params });
-}
+export const modifyCart = debounce((params) => {
+  return axios。put('/shop-cart'， params);
+});
 
-export function deleteCartItem(id) {
-  return axios.delete(`/shop-cart/${id}`);
-}
+export const getCart = debounce((params) => {
+  return axios。get('/shop-cart'， { params });
+});
 
-export function getByCartItemIds(params) {
-  return axios.get('/shop-cart/settle', { params });
-}
+export const deleteCartItem = debounce((id) => {
+  return axios。delete(`/shop-cart/${id}`);
+});
+
+export const getByCartItemIds = debounce((params) => {
+  return axios。get('/shop-cart/settle'， { params });
+});
 
