@@ -19,6 +19,8 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 
 然后，直接在根目录下，运行命令
+
   npx vite
+  
 最后用浏览器打开网站
 http://localhost:8080/#/home
