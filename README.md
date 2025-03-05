@@ -25,7 +25,7 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 最后用浏览器打开网站
 http://localhost:8080/#/home
 
-运行成功示例图如下：
+运行成功示例图如下(若图片显示不成功，请挂梯子)：
 ![例图1](./imgs/1.png)
 
 ![例图2](./imgs/2.png)
