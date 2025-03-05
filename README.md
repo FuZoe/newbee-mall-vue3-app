@@ -29,3 +29,6 @@ http://localhost:8080/#/home
 ![例图1](./imgs/1.png)
 ![例图2](./imgs/2.png)
 ![例图3](./imgs/3.png)
+
+终端界面如下：
+![image](https://github.com/user-attachments/assets/3d8b8e2d-5d8d-4257-beab-f1d9bf4f35d9)
