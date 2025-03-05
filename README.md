@@ -10,8 +10,11 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 首先，在 https://nodejs.org/zh-cn 官网下载Node.js来运行JavaScript
 
 然后，在项目根目录打开终端，执行以下命令
+
   npm install
+  
   npm install -g @vue/cli
+  
   npm install vite --save-dev
 
 
